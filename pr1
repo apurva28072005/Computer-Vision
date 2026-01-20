@@ -1,0 +1,52 @@
+
+clc; clear; close all;
+
+img = imread('peppers.png');
+I = im2double(rgb2gray(img));
+
+negative_img = 1 - I;
+
+c = 1;
+log_img = c * log(1 + I);
+log_img = mat2gray(log_img);
+
+gamma = 0.5;
+power_img = I .^ gamma;
+
+r_min = min(I(:));
+r_max = max(I(:));
+contrast_img = (I - r_min) / (r_max - r_min);
+
+T = 0.5;
+threshold_img = I > T;
+
+histeq_img = histeq(im2uint8(I));
+figure;
+
+subplot(2,4,1);
+imshow(I);
+title('Original');
+
+subplot(2,4,2);
+imshow(negative_img);
+title('Negative');
+
+subplot(2,4,3);
+imshow(log_img);
+title('Log');
+
+subplot(2,4,4);
+imshow(power_img);
+title('Power Law');
+
+subplot(2,4,5);
+imshow(contrast_img);
+title('Contrast Stretching');
+
+subplot(2,4,6);
+imshow(threshold_img);
+title('Thresholding');
+
+subplot(2,4,7);
+imshow(histeq_img);
+title('Histogram Equalization');
