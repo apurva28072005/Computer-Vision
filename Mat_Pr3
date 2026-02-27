@@ -1,0 +1,18 @@
+% Practical 03: Feature Extraction using HOG
+clear; clc; close all;
+% 1. Read the input image
+img = imread('flower.png'); % Using a built-in MATLAB image
+grayImg = rgb2gray(img); % HOG is typically performed on grayscale images
+% 2. Extract HOG Features
+% 'CellSize' defines the spatial resolution (smaller = more detail, larger vector)
+[hogFeatureVector, visualization] = extractHOGFeatures(grayImg, 'CellSize', [8 8]);
+% 3. Display the results
+figure;
+subplot(1,2,1);
+imshow(img);
+title('Original Image');
+subplot(1,2,2);
+plot(visualization);
+title('HOG Visualization (Orientations)');
+% 4. Output Feature Info
+fprintf('Length of HOG Feature Vector: %d\n', length(hogFeatureVector));
